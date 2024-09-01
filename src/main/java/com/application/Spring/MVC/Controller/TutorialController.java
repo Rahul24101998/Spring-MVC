@@ -2,6 +2,7 @@ package com.application.Spring.MVC.Controller;
 
 
 import com.application.Spring.MVC.Interface.TutorialRepository;
+import com.application.Spring.MVC.Utils.Model.Books;
 import com.application.Spring.MVC.Utils.Model.Tutorial;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class TutorialController {
     @Autowired
     TutorialRepository tutorialRepository;
 
-    @GetMapping("/tutorials")
+        @GetMapping("/tutorials")
     public ResponseEntity<List<Tutorial>> getAllTutorials(@RequestParam(required = false) String title) {
         try {
             List<Tutorial> tutorials = new ArrayList<>();
@@ -74,6 +75,7 @@ public class TutorialController {
             _tutorial.setTitle(tutorial.getTitle());
             _tutorial.setDescription(tutorial.getDescription());
             _tutorial.setPublished(tutorial.isPublished());
+            _tutorial.setBooks();
             return new ResponseEntity<>(tutorialRepository.save(_tutorial), HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
