@@ -2,6 +2,8 @@ package com.application.Spring.MVC.Utils.Model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name="tutorial")
 public class Tutorial {
@@ -19,8 +21,20 @@ public class Tutorial {
     @Column(name = "published")
     private boolean published;
 
+
+    @JoinColumn(name="book_id",referencedColumnName = "id")
+    @OneToMany
+    List<Books> books;
+
     public Tutorial() {
 
+    }
+
+    public Tutorial(String title, String description, boolean published, List<Books> books) {
+        this.title = title;
+        this.description = description;
+        this.published = published;
+        this.books = books;
     }
 
     public Tutorial(String title, String description, boolean published) {
@@ -55,6 +69,14 @@ public class Tutorial {
 
     public void setPublished(boolean isPublished) {
         this.published = isPublished;
+    }
+
+    public List<Books> getBooks() {
+        return books;
+    }
+
+    public void setBooks() {
+        this.books = books;
     }
 
     @Override
